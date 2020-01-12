@@ -1,18 +1,38 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class='home'>
+    <input type="text" v-model='search'>
+    <button @click='getDeezerResults'>Search</button>
+    <p>{{search}}</p>
+    <ul>
+      <li v-for="track in deezerResults" :key="track.id">{{track.title}}</li>
+    </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+  },
+  data() {
+    return {
+      deezerResults: null,
+      search: ''
+    }
+  },
+  mounted() {
+
+  },
+  methods: {
+    async getDeezerResults() {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search/track?q=' + this.search)
+      const deezerResults = await response.json()
+      this.deezerResults = deezerResults.data
+      console.log(this.deezerResults)
+    }
   }
 }
+console.log('aaa')
 </script>
