@@ -4,8 +4,7 @@
       Genre
     </h1>
       <div class="genre__container">
-        <div class="genre__item" v-for="genre in deezerGenre" :key="genre.id">
-          {{genre.name}}
+        <div class="genre__item" v-for="genre in deezerGenre" :key="genre.id" v-bind:style="{ 'background-image': 'url(' + genre.picture_medium + ')' }">
         </div>
       </div>
   </div>
@@ -26,7 +25,7 @@ export default {
   },
   methods: {
     async getGenre() {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/genre')
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search/playlist?q=deezer')
       const deezerGenre = await response.json()
       this.deezerGenre = deezerGenre.data
       console.log(this.deezerGenre)
@@ -42,35 +41,37 @@ export default {
 
 .genre__container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-background: linear-gradient(0deg, rgba(30,30,37,1) 65%, rgba(52,57,63,1) 100%);
-  padding: 30px;
+  grid-template-columns: repeat(6, 1fr);
+  background: rgb(237,247,255);
+  background: linear-gradient(124deg, rgba(237,247,255,1) 33%, rgba(221,231,252,1) 92%);
+  padding: 20px;
+  column-gap: 20px;
+  row-gap: 20px;
   }
 
   .genre__item {
   display: grid;
   color: #ffffff;
-  background-color: rgba(52, 57, 63, 0);
-  height: 100px;
+  text-shadow: 2px 2px 2px rgba(84,84,84,1);
+  height: 50px;
   align-content: center;
-  border: 1px solid;
-  border-image-source: linear-gradient(20deg, rgb(122, 37, 49), rgba(52, 57, 63, 0));
-  border-image-slice: 1;
+  border: 7px solid rgba(221,231,252,1);
+  border-radius: 50%;
+  background: rgb(100,139,255);
+  background: linear-gradient(124deg, rgba(100,139,255,1) 48%, rgba(133,156,229,1) 79%);
+  box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5;
+  padding: 40% 5%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   }
 
-  .module-border-wrap {
-  max-width: 250px;
-  padding: 1rem;
-  position: relative;
-  background: linear-gradient(to right, red, purple);
-  padding: 3px;
-}
+  .genre__item:hover {
+    filter: opacity(75%);
+     transition: all 0.2s;
+  }
 
-.module {
-  background: #222;
-  color: white;
-  padding: 2rem;
-}
-
+  .item{
+    height: 50px;
+  }
 </style>
