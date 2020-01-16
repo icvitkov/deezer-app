@@ -8,7 +8,9 @@ export default new Vuex.Store({
     searchString: '',
     allArtists: [],
     allAlbums: [],
-    allTracks: []
+    allTracks: [],
+    artist: [],
+    artistPlaylist: []
   },
   mutations: {
     setSearchString(state, value) {
@@ -22,6 +24,12 @@ export default new Vuex.Store({
     },
     setTracks(state, value) {
       state.allTracks = value;
+    },
+    setArtistSingle(state, value) {
+      state.artist = value;
+    },
+    setArtistPlaylist(state, value) {
+      state.artistPlaylist = value;
     }
   },
   actions: {
@@ -34,7 +42,7 @@ export default new Vuex.Store({
     },
 
     async getAlbums({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/album/autocomplete?limit=3&q=' + state.searchString)
+      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/album/autocomplete?limit=6&q=' + state.searchString)
       const deezerAlbums = await response.json()
       console.log('getAlbums API response: ', deezerAlbums)
       commit('setAlbums', deezerAlbums.data)
@@ -44,6 +52,18 @@ export default new Vuex.Store({
       const deezerTracks = await response.json()
       console.log('getTracks API response: ', deezerTracks)
       commit('setTracks', deezerTracks.data)
+    },
+    async getArtistSingle({ commit, state }, payload) {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/931')
+      const deezerArtistSingle = await response.json()
+      console.log('getArtistSingle API response: ', deezerArtistSingle)
+      commit('setArtistSingle', deezerArtistSingle)
+    },
+    async getArtistPlaylist({ commit, state }, payload) {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/931/top?limit=15')
+      const deezerArtistPlaylist = await response.json()
+      console.log('getArtistPlaylist API response: ', deezerArtistPlaylist.data)
+      commit('setArtistPlaylist', deezerArtistPlaylist.data)
     }
   },
   getters: {
