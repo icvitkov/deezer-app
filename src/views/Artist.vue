@@ -1,12 +1,12 @@
 <template>
   <div id=artist>
       <div class="artist__container">
-        <div class="artist__item" v-bind:style="{ 'background-image': 'url(' + $store.state.artist.picture_medium + ')' }">
+        <div class="artist__item" v-bind:style="{ 'background-image': 'url(' + artist.picture_medium + ')' }">
       </div>
     <div class="caption">
-      <h1>{{$store.state.artist.name}}</h1>
-      <h3>Obožavatelji: {{$store.state.artist.nb_fan}}</h3>
-      <h3>Broj albuma: {{$store.state.artist.nb_album}}</h3>
+      <h1>{{artist.name}}</h1>
+      <h3>Obožavatelji: {{artist.nb_fan}}</h3>
+      <h3>Broj albuma: {{artist.nb_album}}</h3>
     </div>
     </div>
         <div v-for="track in $store.state.artistPlaylist" :key="track.id" class="track">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'artist',
   components: {
@@ -28,9 +29,14 @@ export default {
     return {
     }
   },
+  computed: {
+    ...mapState({
+      artist: (state) => state.artist
+    })
+  },
   mounted() {
-    this.$store.dispatch('getArtistSingle')
-    this.$store.dispatch('getArtistPlaylist')
+    this.$store.dispatch('getArtistSingle', this.$route.params.id)
+    this.$store.dispatch('getArtistPlaylist', this.$route.params.id)
   },
   methods: {
   }

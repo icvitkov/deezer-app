@@ -2,11 +2,7 @@
   <div class='search'>
         <div class="results__wrapper" v-if="$store.state.allArtists.length">
           <h1>Artists</h1>
-            <div class="artist__box" @click="showArtist()" v-for="artist in $store.state.allArtists" :key="artist.id">
-              <div class="artist__item" v-bind:style="{ 'background-image': 'url(' + artist.picture_medium + ')' }">
-            </div>
-              <h3>{{artist.name}}</h3>
-            </div>
+          <artist-item v-for="artist in $store.state.allArtists" :key="artist.id" :artist="artist"></artist-item>
         </div>
         <div class="results__wrapper" v-if="$store.state.allAlbums.length">
           <h1>Albums</h1>
@@ -33,10 +29,12 @@
 
 <script>
 // @ is an alias to /src
+import ArtistItem from './components/ArtistItem'
 
 export default {
   name: 'search',
   components: {
+    ArtistItem
   },
   data() {
     return {
@@ -44,6 +42,10 @@ export default {
     }
   },
   mounted() {
+    if (!this.$store.state.searchString) {
+      this.$router.push('/');
+      return;
+    }
     this.$store.dispatch('getArtists')
     this.$store.dispatch('getAlbums')
     this.$store.dispatch('getTracks')
@@ -59,20 +61,6 @@ export default {
 <style scoped>
 .search{
   text-align: left;
-}
-
-.artist__item{
-  width: 100px;
-  height: 100px;
-  margin: 10px;
-  justify-self: right;
-}
-
-.artist__box{
-  display: grid;
-  grid-template-columns: 150px auto;
-  align-items: center;
-  grid-gap: 10px;
 }
 
 .album__cover{

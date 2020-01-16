@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import SearchResults from '../views/SearchResults.vue'
+import SearchResults from '../views/SearchResults/SearchResults.vue'
 import Artist from '../views/Artist.vue'
 
 Vue.use(VueRouter)
@@ -26,7 +26,7 @@ const routes = [
     component: SearchResults
   },
   {
-    path: '/artist',
+    path: '/artist/:id',
     name: 'artist',
     component: Artist
   }
