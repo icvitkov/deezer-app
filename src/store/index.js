@@ -54,13 +54,13 @@ export default new Vuex.Store({
       commit('setTracks', deezerTracks.data)
     },
     async getArtistSingle({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/931')
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/' + payload)
       const deezerArtistSingle = await response.json()
       console.log('getArtistSingle API response: ', deezerArtistSingle)
       commit('setArtistSingle', deezerArtistSingle)
     },
     async getArtistPlaylist({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/931/top?limit=15')
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/' + payload + '/top?limit=15')
       const deezerArtistPlaylist = await response.json()
       console.log('getArtistPlaylist API response: ', deezerArtistPlaylist.data)
       commit('setArtistPlaylist', deezerArtistPlaylist.data)
