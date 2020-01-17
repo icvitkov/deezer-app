@@ -28,9 +28,17 @@ export default {
       search: ''
     };
   },
+  watch: {
+    '$store.state.searchString': function(newVal) {
+      if (newVal === '') {
+        this.search = ''
+      }
+    }
+  },
 
   methods: {
     getSearch() {
+      console.log('jel ulazis')
       this.$store.commit('setSearchString', this.search);
       const path = `/searchresults`;
       if (this.$route.path !== path) {

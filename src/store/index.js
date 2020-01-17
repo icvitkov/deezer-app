@@ -3,6 +3,14 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+// referenca: https://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/
+function vow(promise) {
+  return promise.then((data) => {
+    return [null, data];
+  })
+    .catch((err) => [err]);
+};
+
 export default new Vuex.Store({
   state: {
     searchString: '',
@@ -38,42 +46,71 @@ export default new Vuex.Store({
   },
   actions: {
     async getArtists({ commit, state }, payload) {
-      console.log('ZOVEM AKCIJU AAAAAA')
-      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/artist/autocomplete?limit=1&q=' + state.searchString)
-      const deezerArtists = await response.json()
-      console.log('getArtists API response: ', deezerArtists)
-      commit('setArtists', deezerArtists.data)
+      let err, res;
+      [err, res] = await vow(fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/artist/autocomplete?limit=1&q=' + state.searchString))
+      if (err) {
+        Vue.prototype.toast.error('Server error occurred', 'Error')
+      } else if (res) {
+        const deezerArtists = await res.json()
+        console.log('getArtists API response: ', deezerArtists)
+        commit('setArtists', deezerArtists.data)
+      }
     },
 
     async getAlbums({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/album/autocomplete?limit=' + payload + '&q=' + state.searchString)
-      const deezerAlbums = await response.json()
-      console.log('getAlbums API response: ', deezerAlbums)
-      commit('setAlbums', deezerAlbums.data)
+      let err, res
+      [err, res] = await vow(fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/album/autocomplete?limit=' + payload + '&q=' + state.searchString))
+      if (err) {
+        Vue.prototype.toast.error('Server error occurred', 'Error')
+      } else if (res) {
+        const deezerAlbums = await res.json()
+        console.log('getAlbums API response: ', deezerAlbums)
+        commit('setAlbums', deezerAlbums.data)
+      }
     },
     async getTracks({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?limit=5&q=' + state.searchString)
-      const deezerTracks = await response.json()
-      console.log('getTracks API response: ', deezerTracks)
-      commit('setTracks', deezerTracks.data)
+      let err, res
+      [err, res] = await vow(fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?limit=' + payload + '&q=' + state.searchString))
+      if (err) {
+        Vue.prototype.toast.error('Server error occurred', 'Error')
+      } else if (res) {
+        const deezerTracks = await res.json()
+        console.log('getTracks API response: ', deezerTracks)
+        commit('setTracks', deezerTracks.data)
+      }
     },
     async getArtistSingle({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/' + payload)
-      const deezerArtistSingle = await response.json()
-      console.log('getArtistSingle API response: ', deezerArtistSingle)
-      commit('setArtistSingle', deezerArtistSingle)
+      let err, res
+      [err, res] = await vow(fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/' + payload))
+      if (err) {
+        Vue.prototype.toast.error('Server error occurred', 'Error')
+      } else if (res) {
+        const deezerArtistSingle = await res.json()
+        console.log('getArtistSingle API response: ', deezerArtistSingle)
+        commit('setArtistSingle', deezerArtistSingle)
+      }
     },
     async getArtistPlaylist({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/' + payload + '/top?limit=15')
-      const deezerArtistPlaylist = await response.json()
-      console.log('getArtistPlaylist API response: ', deezerArtistPlaylist.data)
-      commit('setArtistPlaylist', deezerArtistPlaylist.data)
+      let err, res
+      [err, res] = await vow(fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/' + payload + '/top?limit=15'))
+      if (err) {
+        Vue.prototype.toast.error('Server error occurred', 'Error')
+      } else if (res) {
+        const deezerArtistPlaylist = await res.json()
+        console.log('getArtistPlaylist API response: ', deezerArtistPlaylist.data)
+        commit('setArtistPlaylist', deezerArtistPlaylist.data)
+      }
     },
     async getPlaylistItems({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/playlist/' + payload)
-      const deezerPlaylistItems = await response.json()
-      console.log('getPlaylist API response: ', deezerPlaylistItems.data)
-      commit('setPlaylistItems', deezerPlaylistItems.data)
+      let err, res
+      [err, res] = await vow(fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/playlist/' + payload))
+      if (err) {
+        Vue.prototype.toast.error('Server error occurred', 'Error')
+      } else if (res) {
+        const deezerPlaylistItems = await res.json()
+        console.log('getPlaylist API response: ', deezerPlaylistItems.tracks.data)
+        commit('setPlaylistItems', deezerPlaylistItems.tracks.data)
+      }
     }
   },
   getters: {
