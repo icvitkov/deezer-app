@@ -24,6 +24,10 @@ body{
   font-family: 'Dosis', sans-serif;
   color: #7B8797;
   background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 #app {
   -webkit-font-smoothing: antialiased;

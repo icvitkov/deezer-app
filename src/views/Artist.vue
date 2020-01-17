@@ -9,7 +9,7 @@
       <h3>Broj albuma: {{artist.nb_album}}</h3>
     </div>
     </div>
-    <track-item v-for="track in $store.state.artistPlaylist" :key="track.id" :track="track"></track-item>
+    <track-item v-for="track in artistPlaylist" :key="track.id" :track="track"></track-item>
   </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
   },
   computed: {
     ...mapState({
-      artist: (state) => state.artist
+      artist: (state) => state.artist,
+      artistPlaylist: (state) => state.artistPlaylist
     })
   },
   mounted() {

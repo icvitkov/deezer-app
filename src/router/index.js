@@ -31,11 +31,7 @@ const routes = [
     name: 'artist',
     component: Artist
   },
-  {
-    path: '/playlist/:id',
-    name: 'playlist',
-    component: Playlist
-  }
+  { path: '/playlist/:id', component: Playlist }
 ]
 
 const router = new VueRouter({
