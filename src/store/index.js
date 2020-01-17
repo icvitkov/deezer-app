@@ -10,7 +10,8 @@ export default new Vuex.Store({
     allAlbums: [],
     allTracks: [],
     artist: [],
-    artistPlaylist: []
+    artistPlaylist: [],
+    playlistItems: []
   },
   mutations: {
     setSearchString(state, value) {
@@ -30,25 +31,28 @@ export default new Vuex.Store({
     },
     setArtistPlaylist(state, value) {
       state.artistPlaylist = value;
+    },
+    setPlaylistItems(state, value) {
+      state.playlistItems = value;
     }
   },
   actions: {
     async getArtists({ commit, state }, payload) {
       console.log('ZOVEM AKCIJU AAAAAA')
-      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/artist/autocomplete?limit=3&q=' + state.searchString)
+      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/artist/autocomplete?limit=1&q=' + state.searchString)
       const deezerArtists = await response.json()
       console.log('getArtists API response: ', deezerArtists)
       commit('setArtists', deezerArtists.data)
     },
 
     async getAlbums({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/album/autocomplete?limit=6&q=' + state.searchString)
+      const response = await fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/album/autocomplete?limit=' + payload + '&q=' + state.searchString)
       const deezerAlbums = await response.json()
       console.log('getAlbums API response: ', deezerAlbums)
       commit('setAlbums', deezerAlbums.data)
     },
     async getTracks({ commit, state }, payload) {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?limit=3&q=' + state.searchString)
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?limit=5&q=' + state.searchString)
       const deezerTracks = await response.json()
       console.log('getTracks API response: ', deezerTracks)
       commit('setTracks', deezerTracks.data)
@@ -64,6 +68,12 @@ export default new Vuex.Store({
       const deezerArtistPlaylist = await response.json()
       console.log('getArtistPlaylist API response: ', deezerArtistPlaylist.data)
       commit('setArtistPlaylist', deezerArtistPlaylist.data)
+    },
+    async getPlaylistItems({ commit, state }, payload) {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/playlist/' + payload)
+      const deezerPlaylistItems = await response.json()
+      console.log('getPlaylist API response: ', deezerPlaylistItems.data)
+      commit('setPlaylistItems', deezerPlaylistItems.data)
     }
   },
   getters: {

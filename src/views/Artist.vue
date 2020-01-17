@@ -9,21 +9,17 @@
       <h3>Broj albuma: {{artist.nb_album}}</h3>
     </div>
     </div>
-        <div v-for="track in $store.state.artistPlaylist" :key="track.id" class="track">
-           <div class="cover">
-               <img class="img" :src="track.album.cover" alt="">
-           </div>
-           <p> {{track.title}}</p>
-           <p>-  {{track.album.title}}</p>
-        </div>
+    <track-item v-for="track in $store.state.artistPlaylist" :key="track.id" :track="track"></track-item>
   </div>
 </template>
 
 <script>
+import TrackItem from '../views/components/TrackItem'
 import { mapState } from 'vuex'
 export default {
   name: 'artist',
   components: {
+    TrackItem
   },
   data() {
     return {
@@ -64,15 +60,15 @@ export default {
   height: 300px;
   width: 300px;
   align-content: center;
-  border: 7px solid rgba(221,231,252,1);
+  /* border: 7px solid rgba(221,231,252,1); */
   border-radius: 50%;
-  box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5;
+  /* box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   }
 
-  .track{
+  /* .track{
       display: grid;
       grid-template-columns: repeat(3, max-content);
       grid-gap: 10px;
@@ -92,5 +88,5 @@ export default {
   }
     .cover{
         display: grid;
-    }
+    } */
 </style>

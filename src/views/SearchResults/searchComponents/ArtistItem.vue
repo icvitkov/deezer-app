@@ -24,8 +24,8 @@ export default {
 
 <style scoped>
 .artist__item {
-  width: 100px;
-  height: 100px;
+  /* width: 200px;
+  height: 200px; */
   margin: 10px;
   justify-self: right;
 }
@@ -33,7 +33,7 @@ export default {
 .artist__box {
   cursor: pointer;
   display: grid;
-  grid-template-columns: 150px auto;
+  grid-template-columns: repeat(2, max-content);
   align-items: center;
   grid-gap: 10px;
 }
