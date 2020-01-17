@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="caption">
-      <h1>Preporuka Deezerovih urednika</h1>
+      <h1>Recommended by Deezer's editors</h1>
     </div>
       <div class="genre__container">
         <div @click="getPlaylist" class="genre__item" v-for="genre in deezerGenre" :key="genre.id" v-bind:style="{ 'background-image': 'url(' + genre.picture_medium + ')' }">
@@ -31,7 +31,7 @@ export default {
       console.log(this.deezerGenre)
     },
     getPlaylist() {
-      this.$router.push('/about');
+      this.$router.push('/playlist/')
     }
 
   }
@@ -45,27 +45,27 @@ export default {
 
 .genre__container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, auto);
   padding: 20px;
-  column-gap: 20px;
-  row-gap: 20px;
+  column-gap: 25px;
+  row-gap: 25px;
   }
 
   .genre__item {
   display: grid;
-  color: #ffffff;
-  text-shadow: 2px 2px 2px rgba(84,84,84,1);
-  height: 50px;
+  width: 90%;
+  height: 0;
+  padding-bottom: 90%;
   align-content: center;
-  border: 7px solid rgba(221,231,252,1);
+  /* border: 7px solid rgba(221,231,252,1); */
   border-radius: 50%;
-  background: rgb(100,139,255);
+  /* background: rgb(100,139,255);
   background: linear-gradient(124deg, rgba(100,139,255,1) 48%, rgba(133,156,229,1) 79%);
-  box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5;
-  padding: 40% 5%;
+  box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  cursor: pointer;
   }
   .genre__item:hover {
     filter: opacity(75%);
