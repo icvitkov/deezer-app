@@ -23,6 +23,12 @@
 - getters
 - error handling
 
+## Dependencies
+
+    - eslint
+    - animate.css
+    - vue-izitoast
+
 ## Opis projekta
 
 Temelji se na Deezer API, a omogućava:
