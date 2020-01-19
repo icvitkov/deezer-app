@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .album__cover{
   display: grid;
   height: max-content;

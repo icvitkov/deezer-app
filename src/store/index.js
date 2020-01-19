@@ -117,7 +117,10 @@ export default new Vuex.Store({
       }
     }
   },
-  getters: {
 
+  getters: {
+    filterExplicit: (state) => {
+      return state.playlistItems.filter((item) => !item.explicit_lyrics)
+    }
   }
 })
