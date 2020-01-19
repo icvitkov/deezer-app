@@ -3,12 +3,13 @@
       <div class="artist__container">
         <div class="artist__item" v-bind:style="{ 'background-image': 'url(' + artist.picture_medium + ')' }">
       </div>
-    <div class="caption">
+    <div class="info">
       <h1>{{artist.name}}</h1>
-      <h3>Obožavatelji: {{artist.nb_fan}}</h3>
-      <h3>Broj albuma: {{artist.nb_album}}</h3>
+      <p>Obožavatelji: {{artist.nb_fan}}</p>
+      <p>Broj albuma: {{artist.nb_album}}</p>
     </div>
     </div>
+    <h2>Top tracks by {{artist.name}}</h2>
     <track-item v-for="track in artistPlaylist" :key="track.id" :track="track"></track-item>
   </div>
 </template>
@@ -50,10 +51,9 @@ export default {
 .artist__container {
     display: grid;
     justify-content: center;
-    grid-template-columns: 20% 80%;
+    align-items: center;
+    grid-template-columns: 300px auto;
     grid-gap: 20px;
-    padding: 20px 20px;
-    margin: 50px;
   }
 
   .artist__item {
@@ -61,33 +61,50 @@ export default {
   height: 300px;
   width: 300px;
   align-content: center;
-  /* border: 7px solid rgba(221,231,252,1); */
   border-radius: 50%;
-  /* box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   }
 
-  /* .track{
-      display: grid;
-      grid-template-columns: repeat(3, max-content);
-      grid-gap: 10px;
-      line-height: 50px;
-      border-bottom: 1px solid rgba(123, 135, 151, 0.2);
-      padding: 0 20px;
-      align-content: center;
-      cursor:default;
+  .info p {
+    font-size: 25px;
   }
 
-  .img{
-      height: 50px;
-      width: auto;
-      align-self: center;
-      justify-self: start;
-      margin-right: 10px;
-  }
-    .cover{
-        display: grid;
-    } */
+  @media only screen and (max-width: 600px) {
+     .artist__item{
+       height: 100px;
+       width: 100px;
+     }
+     .artist__container{
+       grid-template-columns: 100px auto;
+     }
+     .info p {
+       font-size: 14px;
+     }
+   }
+    @media only screen and (min-width: 600px) {
+      .artist__item{
+       height: 200px;
+       width: 200px;
+     }
+     .artist__container{
+       grid-template-columns: 200px auto;
+     }
+     .info p {
+       font-size: 18px;
+     }
+    }
+    @media only screen and (min-width:950px) {
+       .artist__item{
+       height: 300px;
+       width: 300px;
+     }
+     .artist__container{
+       grid-template-columns: 300px auto;
+     }
+     .info p {
+       font-size: 25px;
+     }
+   }
 </style>

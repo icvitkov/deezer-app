@@ -19,7 +19,9 @@ export default new Vuex.Store({
     allTracks: [],
     artist: [],
     artistPlaylist: [],
-    playlistItems: []
+    playlistItems: [],
+    banner: '',
+    playlistTitle: ''
   },
   mutations: {
     setSearchString(state, value) {
@@ -42,6 +44,12 @@ export default new Vuex.Store({
     },
     setPlaylistItems(state, value) {
       state.playlistItems = value;
+    },
+    setBanner(state, value) {
+      state.banner = value;
+    },
+    setPlaylistTitle(state, value) {
+      state.playlistTitle = value;
     }
   },
   actions: {
@@ -52,7 +60,6 @@ export default new Vuex.Store({
         Vue.prototype.toast.error('Server error occurred', 'Error')
       } else if (res) {
         const deezerArtists = await res.json()
-        console.log('getArtists API response: ', deezerArtists)
         commit('setArtists', deezerArtists.data)
       }
     },
@@ -64,7 +71,6 @@ export default new Vuex.Store({
         Vue.prototype.toast.error('Server error occurred', 'Error')
       } else if (res) {
         const deezerAlbums = await res.json()
-        console.log('getAlbums API response: ', deezerAlbums)
         commit('setAlbums', deezerAlbums.data)
       }
     },
@@ -75,7 +81,6 @@ export default new Vuex.Store({
         Vue.prototype.toast.error('Server error occurred', 'Error')
       } else if (res) {
         const deezerTracks = await res.json()
-        console.log('getTracks API response: ', deezerTracks)
         commit('setTracks', deezerTracks.data)
       }
     },
@@ -86,7 +91,6 @@ export default new Vuex.Store({
         Vue.prototype.toast.error('Server error occurred', 'Error')
       } else if (res) {
         const deezerArtistSingle = await res.json()
-        console.log('getArtistSingle API response: ', deezerArtistSingle)
         commit('setArtistSingle', deezerArtistSingle)
       }
     },
@@ -97,7 +101,6 @@ export default new Vuex.Store({
         Vue.prototype.toast.error('Server error occurred', 'Error')
       } else if (res) {
         const deezerArtistPlaylist = await res.json()
-        console.log('getArtistPlaylist API response: ', deezerArtistPlaylist.data)
         commit('setArtistPlaylist', deezerArtistPlaylist.data)
       }
     },
@@ -108,8 +111,9 @@ export default new Vuex.Store({
         Vue.prototype.toast.error('Server error occurred', 'Error')
       } else if (res) {
         const deezerPlaylistItems = await res.json()
-        console.log('getPlaylist API response: ', deezerPlaylistItems.tracks.data)
         commit('setPlaylistItems', deezerPlaylistItems.tracks.data)
+        commit('setBanner', deezerPlaylistItems.picture_xl)
+        commit('setPlaylistTitle', deezerPlaylistItems.title)
       }
     }
   },

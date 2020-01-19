@@ -19,7 +19,6 @@ export default {
     }
   },
   mounted() {
-    // this.$toast.error('bodyyyyyyyyyy', 'Naslov')
     this.getPlaylist()
   },
   methods: {
@@ -27,11 +26,8 @@ export default {
       const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search/playlist?q=deezer/')
       const deezerPlaylist = await response.json()
       this.deezerPlaylist = deezerPlaylist.data
-      console.log(this.deezerPlaylist)
-      console.log(this.deezerPlaylist.id)
     },
     showPlaylist(playlistId) {
-      console.log('-', this.deezerPlaylist)
       this.$router.push('/playlist/' + playlistId)
       this.$router.push('/playlist/' + playlistId)
     }
@@ -48,23 +44,20 @@ export default {
 .playlist__container {
   display: grid;
   grid-template-columns: repeat(5, auto);
-  padding: 20px;
-  margin: 50px;
+  width: 90%;
+  margin: 0 5%;
   column-gap: 25px;
   row-gap: 25px;
   }
 
   .playlist__item {
   display: grid;
-  width: 90%;
+  width: 100%;
   height: 0;
-  padding-bottom: 90%;
+  padding-bottom: 100%;
   align-content: center;
-  /* border: 7px solid rgba(221,231,252,1); */
+  justify-self: center;
   border-radius: 50%;
-  /* background: rgb(100,139,255);
-  background: linear-gradient(124deg, rgba(100,139,255,1) 48%, rgba(133,156,229,1) 79%);
-  box-shadow: -10px -10px 20px 9px rgb(255, 255, 255), 10px 10px 20px 9px #ADBBD5; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -78,29 +71,32 @@ export default {
     height: 50px;
   }
   .caption{
-    padding: 20px 20px 20px 50px;
+    width: 90%;
+    margin: 0 5%;
   }
 
-  /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .playlist__container{
-    margin: 0;
     grid-template-columns: repeat(2, auto);
-    padding: 20px;
     column-gap: 25px;
     row-gap: 25px;
   }
 }
+@media only screen and (min-width: 600px) {
+  .playlist__container {
+    grid-template-columns: repeat(3, auto);
+  }
+}
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 950px){
+  .playlist__container {
+    grid-template-columns: repeat(4, auto);
+  }
+}
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+   .playlist__container {
+    grid-template-columns: repeat(5, auto);
+  }
+}
 </style>

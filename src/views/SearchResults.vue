@@ -20,7 +20,7 @@
             <span v-if="isShowTracksVisable" @click="showMoreTracks(20)" class="more">...more</span>
             <span class="more" v-if="!isShowTracksVisable" @click="showMoreTracks(5)"> less  </span>
           </div>
-            <track-item v-for="track in allTracks" :key="track.id" :track="track"></track-item>
+            <playlist-item v-for="playlist in allTracks" :key="playlist.id" :playlist="playlist"></playlist-item>
           </div>
           <div class="results__wrapper error" v-if="!allAlbums.length && !allArtists.length && !allTracks.length">
             <h1>Nema rezultata</h1>
@@ -30,17 +30,17 @@
 
 <script>
 // @ is an alias to /src
-import ArtistItem from './searchComponents/ArtistItem'
-import TrackItem from '../components/TrackItem'
-import AlbumItem from '../components/AlbumItem'
+import ArtistItem from './components/ArtistItem'
+import AlbumItem from './components/AlbumItem'
+import PlaylistItem from './components/PlaylistItem'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'search',
   components: {
     ArtistItem,
-    TrackItem,
-    AlbumItem
+    AlbumItem,
+    PlaylistItem
   },
   data() {
     return {
@@ -56,7 +56,6 @@ export default {
   },
   beforeDestroy() {
     // postaviti u vuexu searchString na ''
-    console.log('destroy')
     this.setSearchString('');
   },
   mounted() {
@@ -97,11 +96,8 @@ export default {
 
 <style scoped>
 .search{
-  position: relative;
-  text-align: left;
-  width: 100%;
-  height: 100%;
-  display: grid;
+  width: 90%;
+  margin: 0 5%;
 }
 .show__more{
   display: grid;
@@ -118,11 +114,32 @@ export default {
   border-radius: 25px;
   cursor: pointer;
 }
-.results__wrapper{
-  padding: 50px;
-}
+
 .error {
   text-align: center;
+}
+
+.albums{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: 20px;
+}
+
+@media only screen and (max-width: 770px) {
+  .albums{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 770px) {
+  .albums{
+    grid-template-columns: repeat(3, 1fr);
+  }
+@media only screen and (min-width: 950px) {
+  .albums{
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
 }
 
 </style>
