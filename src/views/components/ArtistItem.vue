@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     openArtistDetails() {
-      console.log('opening artist!', this.artist)
       this.$router.push('/artist/' + this.artist.id)
     }
   }
@@ -23,12 +22,6 @@ export default {
 </script>
 
 <style scoped>
-.artist__item {
-  /* width: 200px;
-  height: 200px; */
-  margin: 10px;
-  justify-self: right;
-}
 
 .artist__box {
   cursor: pointer;

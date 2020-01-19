@@ -34,14 +34,9 @@ export default {
   padding-bottom: 100%;
 }
 
-.albums{
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  column-gap: 20px;
-}
-
 .album__item{
   display: grid;
   height: max-content;
 }
+
 </style>
