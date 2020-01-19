@@ -11,7 +11,7 @@
 
 <script>
 import PlaylistItem from '../views/components/PlaylistItem'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   components: {
     PlaylistItem
@@ -30,9 +30,12 @@ export default {
   },
   computed: {
     ...mapState({
-      playlistitems: (state) => state.playlistItems,
+      playlistitemsAll: (state) => state.playlistItems,
       banner: (state) => state.banner,
       playlistTitle: (state) => state.playlistTitle
+    }),
+    ...mapGetters({
+      playlistitems: 'filterExplicit'
     })
   },
   mounted() {
